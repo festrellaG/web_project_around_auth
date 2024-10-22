@@ -36,9 +36,9 @@ function App() {
       const tokenLs = localStorage.getItem("jwt");
       if (tokenLs) {
         const response = await checkToken(tokenLs);
-        console.log(response);
         if (response.name) {
           setToken(tokenLs);
+          console.log("Token is valid: ", token);
           setLoggedIn(true);
           navigate("/main");
         } else {
@@ -47,7 +47,7 @@ function App() {
       }
     }
     reviewToken();
-  }, [navigate, isLoggedIn]);
+  }, [navigate, isLoggedIn, token]);
 
   useEffect(() => {
     async function getCards() {

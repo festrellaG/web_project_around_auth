@@ -38,10 +38,9 @@
   .footer {
     max-width: 720px;
   }
-}
 
-@media screen and (max-width: 320px) {
-  .footer {
-    max-width: 282px;
+  .footer__container {
+    width: 100%;
+    text-align: center;
   }
 }

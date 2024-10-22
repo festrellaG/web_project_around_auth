@@ -3,7 +3,8 @@ import { checkToken } from "../utils/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import imageLogo from "../images/logo_header.png";
 import "../blocks/header.css";
-import Navbar from "./Navbar";
+import iconHamburger from "../images/hamburger_icon.png";
+import iconClose from "../images/close_icon.png";
 
 export default function Header() {
   const location = useLocation();
@@ -13,6 +14,7 @@ export default function Header() {
   const isRegisterPage = location.pathname === "/register";
   const isMainPage = location.pathname === "/main";
   const [userEmail, setUserEmail] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     if (isMainPage) {
@@ -55,31 +57,65 @@ export default function Header() {
       navigate("/");
       localStorage.removeItem("jwt");
       setUserEmail("");
+      setIsMenuOpen(false);
     }
   }
 
+  function toggleMenuClick() {
+    setIsMenuOpen(!isMenuOpen);
+  }
+
   return (
-    <header className="header">
-      <img
-        src={imageLogo}
-        alt="Logototipo de una Página iteractiva"
-        className="header__logo"
-        id="image-logo"
-      />
-      {isLoginPage || isRegisterPage ? (
-        <button className="header_btn" onClick={handleButtonClick}>
-          {buttonText}
-        </button>
-      ) : (
-        <div className="header__container">
-          <Navbar
-            userEmail={userEmail}
-            handleButtonClick={handleButtonSessionClick}
-            buttonText={buttonText}
-          />
+    <>
+      {isMenuOpen && (
+        <div className="header__toggle-container">
+          <span>{userEmail}</span>
+          <span>
+            <button
+              className="header_btn-active"
+              onClick={handleButtonSessionClick}
+            >
+              {buttonText}
+            </button>
+          </span>
         </div>
       )}
-      <span className="header__item-divider"></span>
-    </header>
+
+      <header className="header">
+        <img
+          src={imageLogo}
+          alt="Logototipo de una Página iteractiva"
+          className="header__logo"
+          id="image-logo"
+        />
+        {isLoginPage || isRegisterPage ? (
+          <button className="header_btn" onClick={handleButtonClick}>
+            {buttonText}
+          </button>
+        ) : (
+          <>
+            <div className="header__container">
+              <span>{userEmail}</span>
+              <span>
+                <button
+                  className="header_btn-active"
+                  onClick={handleButtonSessionClick}
+                >
+                  {buttonText}
+                </button>
+              </span>
+            </div>
+            <div className="header__hamburger">
+              <img
+                src={isMenuOpen ? iconClose : iconHamburger}
+                onClick={toggleMenuClick}
+                alt="Icon de menu"
+                className="header__toggle-icon"
+              ></img>
+            </div>
+          </>
+        )}
+      </header>
+    </>
   );
 }

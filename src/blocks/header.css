@@ -3,7 +3,9 @@
   margin-left: auto;
   margin-right: auto;
   padding-top: 41px;
+  padding-bottom: 41px;
   position: relative;
+  border-bottom: 1px solid grey;
 }
 
 .header__logo {
@@ -21,12 +23,10 @@
 }
 
 .header__container {
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
+  text-align: right;
   top: -20px;
-  /*border: 1px solid red;*/
   width: 100%;
+  display: block;
 }
 
 .header_btn {
@@ -47,7 +47,6 @@
 }
 
 .header_btn-active {
-  display: flex;
   background-color: transparent;
   border: none;
   color: #ccc;
@@ -61,9 +60,44 @@
   opacity: 0.7;
 }
 
+.header__toggle-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 41px;
+  display: none;
+}
+
+.header__hamburger {
+  display: none;
+  text-align: right;
+  margin-top: -24px;
+}
+
+.header__toggle-icon {
+  width: 30px;
+}
+
 /*@media screen and (max-width: 320px) {*/
 @media screen and (min-width: 320px) and (max-width: 880px) {
   .header {
-    max-width: 282px;
+    max-width: 880x;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-top: 1px solid grey;
+  }
+
+  .header__toggle-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 41px;
+    padding-bottom: 20px;
+  }
+
+  .header__hamburger {
+    display: block;
+  }
+
+  .header__container {
+    display: none;
   }
 }
